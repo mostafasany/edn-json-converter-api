@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -jar target/edn-json-converter-api.jar
