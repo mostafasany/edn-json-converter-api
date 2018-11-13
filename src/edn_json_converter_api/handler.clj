@@ -59,6 +59,9 @@
 (def jsonObject (json/generate-string ednObject))
 
 (defroutes app-routes
+
+           (GET "/" []
+             (str "Service Started ......... Post or get  /toJson or /toEdn"))
   (GET "/toJson" []
     (converters/to-json ednObject))
 
