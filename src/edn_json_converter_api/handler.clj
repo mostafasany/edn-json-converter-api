@@ -5,6 +5,7 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :refer [wrap-json-response]]
             [converters :as converters]
+            [jumblerg.middleware.cors :refer [wrap-cors]]
             [cheshire.core :as json]
             [clj-http.client :as http]))
 
@@ -61,7 +62,7 @@
 (defroutes app-routes
 
            (GET "/" []
-             (str "Service Started ......... Post or get  /toJson or /toEdn"))
+             (str "Service Started ......... Post or get /toJson or /toEdn"))
   (GET "/toJson" []
     (converters/to-json ednObject))
 
@@ -83,6 +84,7 @@
 (def app
   (-> app-routes
       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))
+      (wrap-cors routes #".*")
       (wrap-json-response)))
 
 (comment
