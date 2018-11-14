@@ -1,11 +1,12 @@
 (ns converters
-  (:require [cheshire.core :as json]))
-
+  (:require [cheshire.core :as json]
+            [clojure.edn :as edn]))
 
 
 (defn to-json [edn]
-  (json/generate-string edn))
-
+ (-> (edn/read-string edn)
+     (json/generate-string))
+  )
 
 (defn to-edn [json]
   (json/parse-string json true))
